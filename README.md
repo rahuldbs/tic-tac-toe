@@ -1,2 +1,2 @@
 # tic-tac-toe
-Created with CodeSandbox
+Tic-tac-toe game using react

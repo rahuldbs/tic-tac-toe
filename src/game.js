@@ -39,54 +39,49 @@ export class Game {
     return result;
   }
 
+  isArrayEqual(list) {
+    return list.every((value) => list[0].length > 0 && value === list[0]);
+  }
+
   checkWinner() {
     const size = this.#board.length;
     // horizontal check
     for (let i = 0; i < size; i++) {
-      for (let j = 1; j < size; j++) {
-        if (this.#board[i][j] !== "") {
-          if (this.#board[i][j] !== this.#board[i][0]) {
-            break;
-          }
-          if (j === size - 1) {
-            return this.#board[i][j];
-          }
-        }
+      if (this.isArrayEqual(this.#board[i])) {
+        return this.#board[i][0];
       }
     }
     // vertical check
     for (let j = 0; j < size; j++) {
+      let count = 0;
       for (let i = 1; i < size; i++) {
         if (this.#board[i][j] !== "") {
-          if (this.#board[i][j] !== this.#board[0][j]) {
-            break;
-          }
-          if (i === size - 1) {
-            return this.#board[i][j];
+          if (this.#board[i][j] === this.#board[0][j]) {
+            count++;
           }
         }
+      }
+      if (count === size - 1) {
+        return this.#board[0][j];
       }
     }
     // diagonal check
     for (let i = 1; i < size; i++) {
-      if (this.#board[i][i] !== "") {
-        if (this.#board[i][i] !== this.#board[0][0]) {
-          break;
-        }
-        if (i === size - 1) {
-          return this.#board[i][i];
-        }
+      if (this.#board[i][i] === "" || this.#board[i][i] !== this.#board[0][0]) {
+        break;
+      }
+      if (i === size - 1) {
+        return this.#board[i][i];
       }
     }
 
     for (let i = 1; i < size; i++) {
-      if (this.#board[i][size - 1 - i] !== "") {
-        if (this.#board[i][i] !== this.#board[0][2]) {
-          break;
-        }
-        if (i === size - 1) {
-          return this.#board[i][i];
-        }
+      const j = size - 1 - i;
+      if (this.#board[i][j] === "" || this.#board[i][j] !== this.#board[0][2]) {
+        break;
+      }
+      if (i === size - 1) {
+        return this.#board[i][j];
       }
     }
     // check tie

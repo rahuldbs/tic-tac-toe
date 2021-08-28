@@ -18,7 +18,7 @@ export default function App() {
         alert(msg);
         game.reset();
         setBoard([...game.board]);
-      }, 1000);
+      }, 500);
     }
     setBoard([...game.board]);
   };
